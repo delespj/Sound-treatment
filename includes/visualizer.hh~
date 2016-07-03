@@ -1,0 +1,25 @@
+#ifndef VISUALIZER_HH_
+# define VISUALIZER_HH_
+
+#include <SDL2/SDL.h>
+
+class Visualizer
+{
+private:
+  SDL_Window	*window;
+  SDL_Renderer	*renderer;
+  SDL_Event	event;
+  int	width;
+  int	height;
+
+public:
+  Visualizer(int width, int height);
+  ~Visualizer();
+
+public:
+  void	setColor(int R, int G, int B, int T);
+  void	display();
+  void	loop();
+};
+
+#endif
