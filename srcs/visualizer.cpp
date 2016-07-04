@@ -105,13 +105,7 @@ void	Visualizer::display()
 void    init_height(int height[180])
 {
   for (int i = 0; i < 180; i++)
-    {
-      height[i] = random() % 50;
-      // if (i % 2 == 0)
-      //        height[i] = 50;
-      // else
-      //        height[i] = 20;
-    }
+    height[i] = random() % 50;
 }
 
 #include <unistd.h>
