@@ -127,7 +127,6 @@ void	Visualizer::loop(const char* path, int nb)
 		start+= i;
 		i*= BAR_MULT;
 	}
-    std::cout << bar_amount << std::endl;
 
 	int *bar_start = new int[bar_amount]; //Start of full frequencies
 	int *bar_end = new int[bar_amount]; //End of full frequencies
