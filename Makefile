@@ -2,9 +2,9 @@ NAME		=	visualizer
 
 CXX		?=	g++
 
-INCLUDES	+=	-I ./includes
+INCLUDES	+=	-I ./includes -I ./fmod_include/
 
-LINKER		=	-lSDL2
+LINKER		=	-lSDL2 ./libfmodex64-4.44.32.so
 
 CPPFLAGS	=	$(INCLUDES) -Wall -Wextra
 
