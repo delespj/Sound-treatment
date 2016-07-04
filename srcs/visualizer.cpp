@@ -105,7 +105,7 @@ void	Visualizer::display()
 
 #include <unistd.h>
 
-void	Visualizer::loop()
+void	Visualizer::loop(const char* path, int nb)
 {
 	//Rather useless defines
 	#define SPECTRUMRANGE ((float)OUTPUTRATE / 2.0f) // 24000.0 Hz
@@ -161,7 +161,7 @@ void	Visualizer::loop()
 
 
     int* heights;
-    SoundSystem* ss = new SoundSystem("./music.mp3");
+    SoundSystem* ss = new SoundSystem(path);
 
     ss->play_music();
     while (42)
@@ -191,7 +191,7 @@ void	Visualizer::loop()
         		// const float x2 = -1.0 + float(i + 1) / (float)bar_amount * 2.0;
 
                     if (i < NB_POINTS) {
-                        heights[i] = bar1_heights[i] * 100;
+                        heights[i] = bar1_heights[i] * nb;
                     }
 
         		//Here we actually draw

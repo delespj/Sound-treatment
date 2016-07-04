@@ -37,7 +37,7 @@ public:
   void	drawLine();
 
   void	display();
-  void	loop();
+  void	loop(const char*, int);
 
   void	initPixels(); // tmp
 };
