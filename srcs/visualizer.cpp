@@ -33,9 +33,9 @@ void	Visualizer::drawPoint(int color[4], int x, int y)
   SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 0);
 }
 
-float	degToRad(float corner)
+float	degToRad(int corner)
 {
-  return (corner * M_PI / 180);
+  return ((float)corner * M_PI / 180);
 }
 
 void	Visualizer::initPixels()
@@ -55,11 +55,12 @@ void	Visualizer::drawCircle(int height[180])
   this->initPixels();
   int	j = 0;
   float	tmp = 0.0;
-  int	x1f = this->x * cos(degToRad(CORNER * 0)) - (height[0] + this->y) * sin(degToRad(CORNER * 0)) + (this->width / 2);;
-  int	y1f = this->y1 = (height[0] + this->y) * cos(degToRad(CORNER * 0)) + this->x * sin(degToRad(CORNER * 0)) + (this->height / 2);
-  int y2f = tmp * cos(degToRad(CORNER * 0)) + this->x * sin(degToRad(CORNER * 0)) + (this->height / 2);
-  int x2f = this->x * cos(degToRad(CORNER * 0)) - tmp * sin(degToRad(CORNER * 0)) + (this->width / 2);
-  for (float i = 0.0; i < NB_POINTS - 1; i++)
+  int	x1f;
+  int	y1f;
+  int y2f;
+  int x2f;
+
+  for (int i = 0; i < NB_POINTS; i++)
     {
       tmp = height[j] + this->y;
       this->y1 = tmp * cos(degToRad(CORNER * i)) + this->x * sin(degToRad(CORNER * i)) + (this->height / 2);
@@ -69,9 +70,19 @@ void	Visualizer::drawCircle(int height[180])
       this->x2 = this->x * cos(degToRad(CORNER * i)) - tmp * sin(degToRad(CORNER * i)) + (this->width / 2);
       this->drawPoint(this->color, this->x1, this->y1);
       this->drawPoint(this->color, this->x2, this->y2);
-      SDL_RenderDrawLine(this->renderer, this->x1o, this->y1o, this->x1, this->y1);
-      SDL_RenderDrawLine(this->renderer, this->x2o, this->y2o, this->x2, this->y2);
-	   //      SDL_RenderDrawLine(this->renderer, this->x1, this->y1, this->x2, this->y2);
+      if (i != 0)
+	{
+	  SDL_RenderDrawLine(this->renderer, this->x1o, this->y1o, this->x1, this->y1);
+	  SDL_RenderDrawLine(this->renderer, this->x2o, this->y2o, this->x2, this->y2);
+	}
+      else
+	{
+	  x1f = this->x1;
+	  x2f = this->x2;
+	  y1f = this->y1;
+	  y2f = this->y2;
+	}
+      SDL_RenderDrawLine(this->renderer, this->x1, this->y1, this->x2, this->y2);
       this->x2o = x2;
       this->y2o = y2;
       this->x1o = x1;
@@ -80,17 +91,35 @@ void	Visualizer::drawCircle(int height[180])
     }
   SDL_RenderDrawLine(this->renderer, x1f, y1f, this->x1, this->y1);
   SDL_RenderDrawLine(this->renderer, x2f, y2f, this->x2, this->y2);
+  SDL_RenderPresent(this->renderer);
 }
 
 void	Visualizer::display()
 {
-  SDL_RenderPresent(this->renderer);
+  SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 0);
+  SDL_RenderClear(this->renderer);
   SDL_UpdateWindowSurface(this->window);
+  SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 0);
 }
+
+void    init_height(int height[180])
+{
+  for (int i = 0; i < 180; i++)
+    height[i] = random() % 50;
+}
+
+#include <unistd.h>
 
 void	Visualizer::loop()
 {
+  int	height[180];
   while (42)
-    if (SDL_PollEvent(&this->event) && this->event.type == SDL_QUIT)
-      break;
+    {
+      init_height(height);
+      this->drawCircle(height);
+      this->display();
+      if (SDL_PollEvent(&this->event) && this->event.type == SDL_QUIT)
+	break;
+      usleep(200000);
+    }
 }

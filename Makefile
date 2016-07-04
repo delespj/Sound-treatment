@@ -6,7 +6,7 @@ INCLUDES	+=	-I ./includes -I ./fmod_include/
 
 LINKER		=	-lSDL2 ./libfmodex64-4.44.32.so
 
-CPPFLAGS	=	$(INCLUDES) -Wall -Werror -Wextra
+CPPFLAGS	=	$(INCLUDES) -Wall -Wextra
 
 RM		=	rm -f
 
