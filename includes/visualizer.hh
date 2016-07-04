@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 
-#define NB_POINTS 270
+#define NB_POINTS 360
 #define CORNER 360 / NB_POINTS
 
 class Visualizer

@@ -51,7 +51,7 @@ void	Visualizer::initPixels()
   this->color[3] = 0;
 }
 
-void	Visualizer::drawCircle(int height[180])
+void	Visualizer::drawCircle(int height[])
 {
   this->initPixels();
   int	j = 0;
@@ -118,7 +118,7 @@ void	Visualizer::loop()
 	float spectrumL[SPECTRUMSIZE];
 	float spectrumR[SPECTRUMSIZE];
 
-	#define BAR_MULT 1.022 //Affects the amount of bars
+	#define BAR_MULT 1.0165 //Affects the amount of bars -> 360
 	int bar_amount = 0; //The amount of bars
 	float i = BAR_MULT - 1;
 	float start = 0;
@@ -127,6 +127,7 @@ void	Visualizer::loop()
 		start+= i;
 		i*= BAR_MULT;
 	}
+    std::cout << bar_amount << std::endl;
 
 	int *bar_start = new int[bar_amount]; //Start of full frequencies
 	int *bar_end = new int[bar_amount]; //End of full frequencies
@@ -167,6 +168,8 @@ void	Visualizer::loop()
     while (42)
     {
         ss->get_spectrum(spectrumL, spectrumR);
+
+        heights = new int[NB_POINTS];
 
         {
             heights = new int[NB_POINTS];
