@@ -41,34 +41,45 @@ float	degToRad(float corner)
 void	Visualizer::initPixels()
 {
   this->x = 0;
-  this->y = ((this->height / 2) / 4) * 3;
-  this->x0 = this->x * cos(degToRad(CORNER * 0.0)) - this->y * sin(degToRad(CORNER * 0.0)) + (this->width / 2);
-  this->y0 = this->y * cos(degToRad(CORNER * 0.0)) + this->x * sin(degToRad(CORNER * 0.0)) + (this->height / 2);
+  this->y = 100;
+  this->x1o = this->x * cos(degToRad(CORNER * 0.0)) - this->y * sin(degToRad(CORNER * 0.0)) + (this->width / 2);
+  this->y1o = this->y * cos(degToRad(CORNER * 0.0)) + this->x * sin(degToRad(CORNER * 0.0)) + (this->height / 2);
   this->color[0] = 121;
   this->color[1] = 28;
   this->color[2] = 248;
   this->color[3] = 0;
 }
 
-void	Visualizer::drawCircle()
+void	Visualizer::drawCircle(int height[180])
 {
   this->initPixels();
-  for (float i = 0.0; i < NB_POINTS; i++)
+  int	j = 0;
+  float	tmp = 0.0;
+  int	x1f = this->x * cos(degToRad(CORNER * 0)) - (height[0] + this->y) * sin(degToRad(CORNER * 0)) + (this->width / 2);;
+  int	y1f = this->y1 = (height[0] + this->y) * cos(degToRad(CORNER * 0)) + this->x * sin(degToRad(CORNER * 0)) + (this->height / 2);
+  int y2f = tmp * cos(degToRad(CORNER * 0)) + this->x * sin(degToRad(CORNER * 0)) + (this->height / 2);
+  int x2f = this->x * cos(degToRad(CORNER * 0)) - tmp * sin(degToRad(CORNER * 0)) + (this->width / 2);
+  for (float i = 0.0; i < NB_POINTS - 1; i++)
     {
-      this->x1 = this->x * cos(degToRad(CORNER * i)) - this->y * sin(degToRad(CORNER * i)) + (this->width / 2);
-      this->y1 = this->y * cos(degToRad(CORNER * i)) + this->x * sin(degToRad(CORNER * i)) + (this->height / 2);
+      tmp = height[j] + this->y;
+      this->y1 = tmp * cos(degToRad(CORNER * i)) + this->x * sin(degToRad(CORNER * i)) + (this->height / 2);
+      this->x1 = this->x * cos(degToRad(CORNER * i)) - tmp * sin(degToRad(CORNER * i)) + (this->width / 2);
+      tmp = this->y - height[j];
+      this->y2 = tmp * cos(degToRad(CORNER * i)) + this->x * sin(degToRad(CORNER * i)) + (this->height / 2);
+      this->x2 = this->x * cos(degToRad(CORNER * i)) - tmp * sin(degToRad(CORNER * i)) + (this->width / 2);
       this->drawPoint(this->color, this->x1, this->y1);
-      if (i == 1.0 || i == 2.0)
-	{
-  std::cout << "x0 : " << this->x0 << std::endl;
-  std::cout << "y0 : " << this->y0 << std::endl;
-  std::cout << "x1 : " << this->x1 << std::endl;
-  std::cout << "y1 : " << this->y1 << std::endl;
-	}
-      SDL_RenderDrawLine(this->renderer, this->x0, this->y0, this->x1, this->y1);
-      this->x0 = x1;
-      this->y0 = y1;
+      this->drawPoint(this->color, this->x2, this->y2);
+      SDL_RenderDrawLine(this->renderer, this->x1o, this->y1o, this->x1, this->y1);
+      SDL_RenderDrawLine(this->renderer, this->x2o, this->y2o, this->x2, this->y2);
+	   //      SDL_RenderDrawLine(this->renderer, this->x1, this->y1, this->x2, this->y2);
+      this->x2o = x2;
+      this->y2o = y2;
+      this->x1o = x1;
+      this->y1o = y1;
+      j++;
     }
+  SDL_RenderDrawLine(this->renderer, x1f, y1f, this->x1, this->y1);
+  SDL_RenderDrawLine(this->renderer, x2f, y2f, this->x2, this->y2);
 }
 
 void	Visualizer::display()
