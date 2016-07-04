@@ -11,7 +11,8 @@ CPPFLAGS	=	$(INCLUDES) -Wall -Wextra
 RM		=	rm -f
 
 SRCS		=	srcs/main.cpp \
-			srcs/visualizer.cpp
+			srcs/visualizer.cpp \
+			srcs/SoundSystem.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 

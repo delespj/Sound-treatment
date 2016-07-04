@@ -1,4 +1,5 @@
 #include <iostream>
+#include "fmod_errors.h"
 #include "SoundSystem.hh"
 
 // Function for handling FMOD errors
