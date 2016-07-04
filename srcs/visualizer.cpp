@@ -55,11 +55,14 @@ void	Visualizer::drawCircle(int height[180])
   this->initPixels();
   int	j = 0;
   float	tmp = 0.0;
-  int	x1f = this->x * cos(degToRad(CORNER * 0)) - (height[0] + this->y) * sin(degToRad(CORNER * 0)) + (this->width / 2);;
-  int	y1f = this->y1 = (height[0] + this->y) * cos(degToRad(CORNER * 0)) + this->x * sin(degToRad(CORNER * 0)) + (this->height / 2);
+  int	x1f = this->x * cos(degToRad(CORNER * 0)) - (height[0] + this->y)
+    * sin(degToRad(CORNER * 0)) + (this->width / 2);
+  int	y1f = this->y1 = (height[0] + this->y) * cos(degToRad(CORNER * 0)) + this->x
+    * sin(degToRad(CORNER * 0)) + (this->height / 2);
   int y2f = tmp * cos(degToRad(CORNER * 0)) + this->x * sin(degToRad(CORNER * 0)) + (this->height / 2);
   int x2f = this->x * cos(degToRad(CORNER * 0)) - tmp * sin(degToRad(CORNER * 0)) + (this->width / 2);
-  for (float i = 0.0; i < NB_POINTS - 1; i++)
+
+  for (float i = 0.0; i < NB_POINTS; i++)
     {
       tmp = height[j] + this->y;
       this->y1 = tmp * cos(degToRad(CORNER * i)) + this->x * sin(degToRad(CORNER * i)) + (this->height / 2);

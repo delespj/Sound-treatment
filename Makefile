@@ -6,7 +6,7 @@ INCLUDES	+=	-I ./includes
 
 LINKER		=	-lSDL2
 
-CPPFLAGS	=	$(INCLUDES) -Wall -Werror -Wextra
+CPPFLAGS	=	$(INCLUDES) -Wall -Wextra
 
 RM		=	rm -f
 
